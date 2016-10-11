@@ -8,6 +8,8 @@ import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.Sprite;
+import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
+import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator.FreeTypeFontParameter;
 import com.meowmachinery.game.AssetLoader;
 import com.meowmachinery.game.GalacticConquestLite;
 
@@ -34,10 +36,14 @@ public class LoadingScreen implements Screen {
 
         textureBackground = new Texture(Gdx.files.internal("menu_background.jpg"));
         spriteBackground = new Sprite(textureBackground);
+        spriteBackground.setSize(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
 
-        font = new BitmapFont();
-        font.getData().setScale(2);
-        font.setColor(Color.WHITE);
+        FreeTypeFontGenerator generator = new FreeTypeFontGenerator(Gdx.files.internal("fonts/kenvector_future.ttf"));
+        FreeTypeFontParameter parameter = new FreeTypeFontParameter();
+        parameter.size = 12;
+
+        font = generator.generateFont(parameter);
+        generator.dispose();
 
         AssetLoader.loadTextures(assetManager);
     }
@@ -57,6 +63,7 @@ public class LoadingScreen implements Screen {
             game.setScreen(new MainMenuScreen(game, assetManager));
             dispose();
         }
+
 
         float progress = assetManager.getProgress();
 

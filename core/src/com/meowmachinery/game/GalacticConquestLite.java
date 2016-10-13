@@ -25,5 +25,6 @@ public class GalacticConquestLite extends Game {
 	@Override
 	public void dispose() {
 		batch.dispose();
+		assetManager.dispose();
 	}
 }

@@ -3,7 +3,6 @@ package com.meowmachinery.game.Screens;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.assets.AssetManager;
-import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
@@ -14,15 +13,6 @@ import com.meowmachinery.game.AssetLoader;
 import com.meowmachinery.game.GalacticConquestLite;
 
 public class LoadingScreen implements Screen {
-
-    /*
-        Loading screen will display a background image,
-        and will display text showing the loading percentage (assets).
-
-        No interaction.
-
-        Once finished, pass to MainMenuScreen.
-    */
 
     private GalacticConquestLite game;
     private AssetManager assetManager;
@@ -58,12 +48,10 @@ public class LoadingScreen implements Screen {
         Gdx.gl.glClearColor(1, 1, 1, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
-
         if (assetManager.update()) {
             game.setScreen(new MainMenuScreen(game, assetManager));
             dispose();
         }
-
 
         float progress = assetManager.getProgress();
 

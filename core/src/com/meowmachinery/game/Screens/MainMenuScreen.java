@@ -4,6 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.assets.AssetManager;
+import com.badlogic.gdx.graphics.GL20;
 import com.meowmachinery.game.GalacticConquestLite;
 
 public class MainMenuScreen implements Screen, InputProcessor {
@@ -39,7 +40,8 @@ public class MainMenuScreen implements Screen, InputProcessor {
 
     @Override
     public void render(float delta) {
-
+        Gdx.gl.glClearColor(1, 1, 1, 1);
+        Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
     }
 
     @Override

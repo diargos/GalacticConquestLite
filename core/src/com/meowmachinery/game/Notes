@@ -1,0 +1,8 @@
+    /*
+        Loading screen will display a background image,
+        and will display text showing the loading percentage (assets).
+
+        No interaction.
+
+        Once finished, pass to MainMenuScreen.
+    */

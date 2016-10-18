@@ -6,3 +6,15 @@
 
         Once finished, pass to MainMenuScreen.
     */
+
+
+    /*
+        Options screen lets the user config the application stuff, and maybe some game stuff.
+
+            - Fullscreen vs windowed
+            - Screen resolution
+            - Key binding? maybe a later iteration once units/players can do stuff
+
+        Typical interaction stuff.
+        Next screen: main menu
+     */

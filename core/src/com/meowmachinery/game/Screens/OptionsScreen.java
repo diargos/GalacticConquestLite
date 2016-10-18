@@ -1,106 +1,53 @@
 package com.meowmachinery.game.Screens;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.InputProcessor;
-import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.assets.AssetManager;
+import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.scenes.scene2d.ui.Button;
+import com.badlogic.gdx.scenes.scene2d.ui.Button.ButtonStyle;
+import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.meowmachinery.game.GalacticConquestLite;
 
-public class OptionsScreen implements Screen, InputProcessor {
+public class OptionsScreen extends GameScreen  {
 
-    /*
-        Options screen lets the user config the application stuff, and maybe some game stuff.
-
-            - Fullscreen vs windowed
-            - Screen resolution
-            - Key binding? maybe a later iteration once units/players can do stuff
-
-        Typical interaction stuff.
-        Next screen: main menu
-     */
-
-    private GalacticConquestLite game;
-    private AssetManager assetManager;
+    Button button;
 
     public OptionsScreen (GalacticConquestLite game, AssetManager assetManager) {
-        this.game = game;
-        this.assetManager = assetManager;
+        super (game, assetManager);
 
-        Gdx.input.setInputProcessor(this);
-    }
+        ButtonStyle style = new ButtonStyle(skin.get(ButtonStyle.class));
 
-    @Override
-    public boolean keyDown(int keycode) {
-        return false;
-    }
 
-    @Override
-    public boolean keyUp(int keycode) {
-        return false;
-    }
+        style.up = new TextureRegionDrawable(
+                new TextureRegion((Texture) assetManager.get("menu/button_test1.png")));
 
-    @Override
-    public boolean keyTyped(char character) {
-        return false;
-    }
+        style.down = style.over = style.checked =
+                new TextureRegionDrawable(
+                    new TextureRegion((Texture)assetManager.get("menu/button_test2.png")));
 
-    @Override
-    public boolean touchDown(int screenX, int screenY, int pointer, int button) {
-        return false;
-    }
+        button = new Button(style);
+        button.setX(Gdx.graphics.getWidth() / 2 + (button.getWidth() / 2));
+        button.setY(Gdx.graphics.getHeight() / 2 + (button.getHeight()));
 
-    @Override
-    public boolean touchUp(int screenX, int screenY, int pointer, int button) {
-        return false;
-    }
-
-    @Override
-    public boolean touchDragged(int screenX, int screenY, int pointer) {
-        return false;
-    }
-
-    @Override
-    public boolean mouseMoved(int screenX, int screenY) {
-        return false;
-    }
-
-    @Override
-    public boolean scrolled(int amount) {
-        return false;
-    }
-
-    @Override
-    public void show() {
+        stage.addActor(button);
 
     }
 
     @Override
     public void render(float delta) {
-
+        super.render(delta);
+        game.batch.begin();
+        font.draw(game.batch,
+                 "Is over: " + button.isOver(),
+                (int)(stage.getWidth() * 0.1),
+                stage.getHeight() - (int)(stage.getHeight() * 0.1) + 100);
+        game.batch.end();
     }
 
     @Override
-    public void resize(int width, int height) {
-
-    }
-
-    @Override
-    public void pause() {
-
-    }
-
-    @Override
-    public void resume() {
-
-    }
-
-    @Override
-    public void hide() {
-
-    }
-
-    @Override
-    public void dispose() {
+    public boolean keyDown(int keycode) {
+        return super.keyDown(keycode);
 
     }
 }

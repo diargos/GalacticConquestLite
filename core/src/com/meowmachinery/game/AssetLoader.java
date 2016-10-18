@@ -5,6 +5,7 @@ import com.badlogic.gdx.graphics.Texture;
 
 public class AssetLoader {
     public static void loadTextures(AssetManager assetManager) {
+        /*
         assetManager.load("map/darkPurple.png", Texture.class);
         assetManager.load("map/meteorBrown_big1.png", Texture.class);
         assetManager.load("map/meteorBrown_big2.png", Texture.class);
@@ -33,5 +34,10 @@ public class AssetLoader {
         assetManager.load("map/playerShip1_green.png", Texture.class);
         assetManager.load("map/playerShip1_orange.png", Texture.class);
         assetManager.load("map/playerShip1_red.png", Texture.class);
+        */
+        assetManager.load("menu_background.jpg", Texture.class);
+        assetManager.load("menu/button_empty.png", Texture.class);
+        assetManager.load("menu/button_test1.png", Texture.class);
+        assetManager.load("menu/button_test2.png", Texture.class);
     }
 }

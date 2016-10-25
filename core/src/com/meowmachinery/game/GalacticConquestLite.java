@@ -7,8 +7,6 @@ import com.meowmachinery.game.Screens.LoadingScreen;
 
 public class GalacticConquestLite extends Game {
 
-	//public static final int V_WIDTH = 1920;
-	//public static final int V_HEIGHT = 1080;
 	public static final int V_WIDTH = 100;
 	public static final int V_HEIGHT = 100;
 

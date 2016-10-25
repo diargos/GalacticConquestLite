@@ -18,3 +18,60 @@
         Typical interaction stuff.
         Next screen: main menu
      */
+
+      /*
+             This screen will display a vertical list of buttons, one for
+             each screen/option:
+                 - New Game   (goes to NewGameScreen)
+                 - Continue Game   (no screen, just loads most recent save file)
+                 - Load Game  (LoadGameScreen)
+                 - Options  (OptionsScreen)
+                 - About    (AboutScreen)
+                 - Exit      (exits the game, be sure to look up best practices for this)
+
+             Input required: up/down arrows, enter, escape?, mouse
+             Goes to different screens depending on option selected.
+          */
+
+
+         @Override
+         public void render(float delta) {
+             super.render(delta);
+
+             game.batch.begin();
+             backgroundSprite.draw(game.batch);
+             boolean isOver = false;
+             for (int i = 0; i < buttonCount; i++) {
+                 if ( buttonList[i][0].isOver() ) {
+                     isOver = true;
+                     break;
+                 }
+             }
+
+
+             font.draw(game.batch,
+                     "Is over: " + isOver,
+                     (int) (100/16),
+                     100 - (100/16) + (100/32));
+                     //(int) (100 * 0.1),
+                     //100 - (int) (100 * 0.1) );
+                     //(int) (stage.getWidth() * 0.1),
+                     //stage.getHeight() - (int) (stage.getHeight() * 0.1) + 100);
+             font.draw(game.batch,
+                     "Pointer position: " + (Gdx.input.getX()) + ", " + (Gdx.input.getY()),
+                     (int)(100/16),
+                     100 - ((100/16)*2) + (100/32));
+             font.draw(game.batch,
+                     "Position %: " + ((float)Gdx.input.getX()/(float)(Gdx.graphics.getWidth()-1))*100 + ", " + ((float)Gdx.input.getY()/(float)(Gdx.graphics.getHeight()-1))*100,
+                     (int)(100/16),
+                     100 - ((100/16)*3) + (100/32));
+             font.draw(game.batch,
+                     "Screen size: " + (Gdx.graphics.getWidth()) + ", " + (Gdx.graphics.getHeight()),
+                     (int)(100/16),
+                     (100/16));
+
+             game.batch.end();
+
+
+             stage.act();
+             stage.draw();

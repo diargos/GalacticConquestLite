@@ -1,7 +1,6 @@
 package com.meowmachinery.game.Screens;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputMultiplexer;
 import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.Screen;
@@ -11,13 +10,12 @@ import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
-import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
-//import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.StretchViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.meowmachinery.game.GalacticConquestLite;
+
 
 public class GameScreen implements Screen, InputProcessor {
 
@@ -30,28 +28,23 @@ public class GameScreen implements Screen, InputProcessor {
     protected Skin skin;
     protected BitmapFont font;
 
-    protected int debugType = 0;
-
     public GameScreen (GalacticConquestLite game, AssetManager assetManager) {
         this.game = game;
         this.assetManager = assetManager;
 
         camera = new OrthographicCamera();
-        //viewport = new FitViewport(GalacticConquestLite.V_WIDTH, GalacticConquestLite.V_HEIGHT, camera);
         viewport = new StretchViewport(GalacticConquestLite.V_WIDTH, GalacticConquestLite.V_HEIGHT, camera);
         viewport.apply();
-        //camera.position.set(viewport.getWorldWidth()/2, viewport.getWorldHeight()/2, 0);
-        camera.position.set(camera.viewportWidth/2,camera.viewportHeight/2,0); // aim the focal axis of the camera at the center of the window
+        camera.position.set(camera.viewportWidth/2,camera.viewportHeight/2,0);
 
         stage = new Stage(viewport, game.batch);
-        //game.batch.setProjectionMatrix(camera.combined);
 
         skin = new Skin(Gdx.files.internal("data/uiskin.json"));
 
+        // Todo: fix/change this font to something better
         FreeTypeFontGenerator generator = new FreeTypeFontGenerator(Gdx.files.internal("fonts/kenvector_future_thin.ttf"));
         FreeTypeFontGenerator.FreeTypeFontParameter parameter = new FreeTypeFontGenerator.FreeTypeFontParameter();
-        parameter.size = 100/25;
-        //parameter.color = Color.BLACK;
+        parameter.size = GalacticConquestLite.V_WIDTH/25;
         parameter.color = Color.WHITE;
 
         font = generator.generateFont(parameter);
@@ -63,27 +56,6 @@ public class GameScreen implements Screen, InputProcessor {
         Gdx.input.setInputProcessor(inputMultiplexer);
     }
 
-    private String getCoordinates() {
-
-        Vector3 pos = new Vector3(Gdx.input.getX(),Gdx.input.getY(),0);
-        //camera.unproject(pos);
-
-        /*
-        switch (debugType) {
-            case 0:
-                return "Gdx Input: " + Gdx.input.getX() + ", " + Gdx.input.getY();
-            case 1:
-                return "Unprojected: " + pos.X + ", " + pos.Y;
-            case 2:
-                return "Virtual: " + viewport.getScreenX()+ ", " + viewport.getScreenY();
-            default:
-                return "error";
-        }
-        */
-        //return "Virtual: " + viewport.getScreenX()+ ", " + viewport.getScreenY();
-        return "Virtual: "; //+ (50) + ", " + (50);
-    }
-
     @Override
     public void show() {
 
@@ -91,21 +63,11 @@ public class GameScreen implements Screen, InputProcessor {
 
     @Override
     public void render(float delta) {
-
-        camera.update();
-
         Gdx.gl.glClearColor(1, 1, 1, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
+        camera.update();
         game.batch.setProjectionMatrix(camera.combined);
-        game.batch.begin();
-        font.draw(game.batch,
-                getCoordinates(),
-                (int)(20),
-                (80));
-                //(int)(stage.getWidth() * 0.1),
-                //stage.getHeight() - (int)(stage.getHeight() * 0.1));
-        game.batch.end();
 
         stage.act(Gdx.graphics.getDeltaTime());
         stage.draw();
@@ -140,12 +102,7 @@ public class GameScreen implements Screen, InputProcessor {
 
     @Override
     public boolean keyDown(int keycode) {
-        if (keycode == Input.Keys.M) {
-            debugType++;
-            if (debugType > 2)
-                debugType = 0;
-        }
-        return true;
+        return false;
     }
 
     @Override

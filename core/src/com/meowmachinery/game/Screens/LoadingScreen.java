@@ -49,7 +49,8 @@ public class LoadingScreen implements Screen {
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
         if (assetManager.update()) {
-            game.setScreen(new OptionsScreen(game, assetManager));
+            //game.setScreen(new OptionsScreen(game, assetManager));
+            game.setScreen(new MainMenuScreen(game, assetManager));
             dispose();
         }
 

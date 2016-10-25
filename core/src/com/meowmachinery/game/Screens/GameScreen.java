@@ -14,7 +14,8 @@ import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
-import com.badlogic.gdx.utils.viewport.FitViewport;
+//import com.badlogic.gdx.utils.viewport.FitViewport;
+import com.badlogic.gdx.utils.viewport.StretchViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.meowmachinery.game.GalacticConquestLite;
 
@@ -36,18 +37,22 @@ public class GameScreen implements Screen, InputProcessor {
         this.assetManager = assetManager;
 
         camera = new OrthographicCamera();
-        viewport = new FitViewport(GalacticConquestLite.V_WIDTH, GalacticConquestLite.V_HEIGHT, camera);
-        camera.position.set(viewport.getWorldWidth()/2, viewport.getWorldHeight()/2, 0);
+        //viewport = new FitViewport(GalacticConquestLite.V_WIDTH, GalacticConquestLite.V_HEIGHT, camera);
+        viewport = new StretchViewport(GalacticConquestLite.V_WIDTH, GalacticConquestLite.V_HEIGHT, camera);
+        viewport.apply();
+        //camera.position.set(viewport.getWorldWidth()/2, viewport.getWorldHeight()/2, 0);
+        camera.position.set(camera.viewportWidth/2,camera.viewportHeight/2,0); // aim the focal axis of the camera at the center of the window
 
         stage = new Stage(viewport, game.batch);
-        game.batch.setProjectionMatrix(camera.combined);
+        //game.batch.setProjectionMatrix(camera.combined);
 
         skin = new Skin(Gdx.files.internal("data/uiskin.json"));
 
         FreeTypeFontGenerator generator = new FreeTypeFontGenerator(Gdx.files.internal("fonts/kenvector_future_thin.ttf"));
         FreeTypeFontGenerator.FreeTypeFontParameter parameter = new FreeTypeFontGenerator.FreeTypeFontParameter();
-        parameter.size = 50;
-        parameter.color = Color.BLACK;
+        parameter.size = 100/25;
+        //parameter.color = Color.BLACK;
+        parameter.color = Color.WHITE;
 
         font = generator.generateFont(parameter);
         generator.dispose();
@@ -61,8 +66,9 @@ public class GameScreen implements Screen, InputProcessor {
     private String getCoordinates() {
 
         Vector3 pos = new Vector3(Gdx.input.getX(),Gdx.input.getY(),0);
-        camera.unproject(pos);
+        //camera.unproject(pos);
 
+        /*
         switch (debugType) {
             case 0:
                 return "Gdx Input: " + Gdx.input.getX() + ", " + Gdx.input.getY();
@@ -73,6 +79,9 @@ public class GameScreen implements Screen, InputProcessor {
             default:
                 return "error";
         }
+        */
+        //return "Virtual: " + viewport.getScreenX()+ ", " + viewport.getScreenY();
+        return "Virtual: "; //+ (50) + ", " + (50);
     }
 
     @Override
@@ -82,17 +91,24 @@ public class GameScreen implements Screen, InputProcessor {
 
     @Override
     public void render(float delta) {
+
+        camera.update();
+
         Gdx.gl.glClearColor(1, 1, 1, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
-        stage.act(Gdx.graphics.getDeltaTime());
-        stage.draw();
+        game.batch.setProjectionMatrix(camera.combined);
         game.batch.begin();
         font.draw(game.batch,
                 getCoordinates(),
-                (int)(stage.getWidth() * 0.1),
-                stage.getHeight() - (int)(stage.getHeight() * 0.1));
+                (int)(20),
+                (80));
+                //(int)(stage.getWidth() * 0.1),
+                //stage.getHeight() - (int)(stage.getHeight() * 0.1));
         game.batch.end();
+
+        stage.act(Gdx.graphics.getDeltaTime());
+        stage.draw();
     }
 
     @Override

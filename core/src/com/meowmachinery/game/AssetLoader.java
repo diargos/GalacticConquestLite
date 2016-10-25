@@ -39,5 +39,26 @@ public class AssetLoader {
         assetManager.load("menu/button_empty.png", Texture.class);
         assetManager.load("menu/button_test1.png", Texture.class);
         assetManager.load("menu/button_test2.png", Texture.class);
+
+        assetManager.load("menu/scrMenuMainBackground.png", Texture.class);
+        assetManager.load("menu/btnNewGameUp.png", Texture.class);
+        assetManager.load("menu/btnNewGameOver.png", Texture.class);
+        assetManager.load("menu/btnNewGameDown.png", Texture.class);
+        assetManager.load("menu/btnContinueGameUp.png", Texture.class);
+        assetManager.load("menu/btnContinueGameOver.png", Texture.class);
+        assetManager.load("menu/btnContinueGameDown.png", Texture.class);
+        assetManager.load("menu/btnLoadGameUp.png", Texture.class);
+        assetManager.load("menu/btnLoadGameOver.png", Texture.class);
+        assetManager.load("menu/btnLoadGameDown.png", Texture.class);
+        assetManager.load("menu/btnOptionGameUp.png", Texture.class);
+        assetManager.load("menu/btnOptionGameOver.png", Texture.class);
+        assetManager.load("menu/btnOptionGameDown.png", Texture.class);
+        assetManager.load("menu/btnAboutGameUp.png", Texture.class);
+        assetManager.load("menu/btnAboutGameOver.png", Texture.class);
+        assetManager.load("menu/btnAboutGameDown.png", Texture.class);
+        assetManager.load("menu/btnExitGameUp.png", Texture.class);
+        assetManager.load("menu/btnExitGameOver.png", Texture.class);
+        assetManager.load("menu/btnExitGameDown.png", Texture.class);
+
     }
 }

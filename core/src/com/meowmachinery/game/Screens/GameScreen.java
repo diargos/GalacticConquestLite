@@ -8,6 +8,7 @@ import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
 import com.badlogic.gdx.scenes.scene2d.Stage;
@@ -26,7 +27,8 @@ public class GameScreen implements Screen, InputProcessor {
     protected Viewport viewport;
     protected Stage stage;
     protected Skin skin;
-    protected BitmapFont font;
+    protected BitmapFont fontM;
+    protected BitmapFont fontL;
 
     public GameScreen (GalacticConquestLite game, AssetManager assetManager) {
         this.game = game;
@@ -42,12 +44,16 @@ public class GameScreen implements Screen, InputProcessor {
         skin = new Skin(Gdx.files.internal("data/uiskin.json"));
 
         // Todo: fix/change this font to something better
-        FreeTypeFontGenerator generator = new FreeTypeFontGenerator(Gdx.files.internal("fonts/kenvector_future_thin.ttf"));
+        FreeTypeFontGenerator generator = new FreeTypeFontGenerator(Gdx.files.internal("fonts/kenvector_future.ttf"));
         FreeTypeFontGenerator.FreeTypeFontParameter parameter = new FreeTypeFontGenerator.FreeTypeFontParameter();
-        parameter.size = GalacticConquestLite.V_WIDTH/25;
+        parameter.size = 18;
+        parameter.minFilter = Texture.TextureFilter.Linear;
+        parameter.magFilter = Texture.TextureFilter.Linear;
         parameter.color = Color.WHITE;
-
-        font = generator.generateFont(parameter);
+        fontM = generator.generateFont(parameter);
+        generator.dispose();// do I need this before I reset generator or just after i'm done with all fonts?
+        generator = new FreeTypeFontGenerator(Gdx.files.internal("fonts/kenvector_future_thin.ttf"));
+        fontL = generator.generateFont(parameter);
         generator.dispose();
 
         InputMultiplexer inputMultiplexer = new InputMultiplexer();
@@ -97,7 +103,7 @@ public class GameScreen implements Screen, InputProcessor {
     public void dispose() {
         stage.dispose();
         skin.dispose();
-        font.dispose();
+        fontM.dispose();
     }
 
     @Override

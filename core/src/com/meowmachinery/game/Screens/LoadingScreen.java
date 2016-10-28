@@ -51,6 +51,7 @@ public class LoadingScreen implements Screen {
         if (assetManager.update()) {
             //game.setScreen(new OptionsScreen(game, assetManager));
             game.setScreen(new MainMenuScreen(game, assetManager));
+            //game.setScreen(new NewGameScreen(game, assetManager));
             dispose();
         }
 
